@@ -46,7 +46,7 @@
   .font-dancing{font-family:'Dancing Script',cursive}
   .font-serif-italic{font-family:'Cormorant Garamond',serif;font-style:italic}
 
-  /* Dreamy Gradient Background - Static for Mobile Performance */
+  /* Dreamy Gradient Background */
   .hero-bg{
     background:linear-gradient(135deg, #14060c, #250a1a, #3a1025, #1e0a15, #14060c);
   }
@@ -57,6 +57,23 @@
     0%,100%{transform:translate(0,0) scale(1)}
     33%{transform:translate(40px,-50px) scale(1.15)}
     66%{transform:translate(-30px,40px) scale(0.9)}
+  }
+
+  /* Diamond Sparkles (CSS Only) */
+  .sparkle-star {
+    position: absolute;
+    background: #fff;
+    width: 8px;
+    height: 8px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: twinkle 2.5s infinite ease-in-out;
+    filter: drop-shadow(0 0 4px #ffd0dc);
+    pointer-events: none;
+    z-index: 2;
+  }
+  @keyframes twinkle {
+    0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
   }
 
   /* Luxury Intro Gift Box */
@@ -76,7 +93,7 @@
   .gift-box .bow{position:absolute;top:-35px;left:50%;transform:translateX(-50%);font-size:42px;color:#ffd700;z-index:5;text-shadow:0 0 20px rgba(255,215,0,.8),0 0 40px rgba(255,94,156,.5);animation:wiggle 2s ease-in-out infinite}
   @keyframes wiggle{0%,100%{transform:translateX(-50%) rotate(-10deg)}50%{transform:translateX(-50%) rotate(10deg)}}
 
-  /* Static CSS Petals (No JS DOM creation for Mobile Performance) */
+  /* Static CSS Petals & Bubbles */
   .petal{position:fixed;top:-30px;pointer-events:none;z-index:5;animation:fall linear infinite; will-change: transform;}
   @keyframes fall{
     0%{transform:translateY(-30px) translateX(0) rotate(0deg);opacity:0}
@@ -84,8 +101,6 @@
     90%{opacity:.9}
     100%{transform:translateY(110vh) translateX(20px) rotate(720deg);opacity:0}
   }
-  
-  /* Static CSS Bubbles */
   .bubble{position:fixed;border-radius:50%;pointer-events:none;z-index:5;animation:bubbleFloat linear infinite; will-change: transform;}
   @keyframes bubbleFloat{
     0%{transform:translateY(110vh) translateX(0);opacity:0}
@@ -100,12 +115,17 @@
   .music-btn.playing i{animation:spin 3s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* Hero Photo Frame */
+  /* Hero Photo Frame - Enhanced with Glowing Halo */
   .photo-frame{position:relative;animation:floatY 6s ease-in-out infinite; will-change: transform;}
   @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-  .photo-frame::before,.photo-frame::after{content:'';position:absolute;width:50px;height:50px;z-index:3;transition:all .5s}
-  .photo-frame::before{top:-12px;left:-12px;border-top:3px solid var(--accent-2);border-left:3px solid var(--accent-2)}
-  .photo-frame::after{bottom:-12px;right:-12px;border-bottom:3px solid var(--accent-2);border-right:3px solid var(--accent-2)}
+  .photo-halo {
+    position: absolute; inset: -20px; border-radius: 12px; background: radial-gradient(circle, rgba(255,94,156,0.25), transparent 70%);
+    filter: blur(30px); z-index: -1; animation: haloPulse 4s ease-in-out infinite;
+  }
+  @keyframes haloPulse { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.1); opacity: 1; } }
+  .photo-frame::before,.photo-frame::after{content:'';position:absolute;width:50px;height:50px;z-index:3;transition:all .5s; border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);}
+  .photo-frame::before{top:-12px;left:-12px;border-top:3px solid;border-left:3px solid}
+  .photo-frame::after{bottom:-12px;right:-12px;border-bottom:3px solid;border-right:3px solid}
 
   /* VIP Princess Badge */
   .princess-badge{
@@ -122,8 +142,6 @@
   /* Reveal Animations */
   .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
   .reveal.in-view{opacity:1;transform:translateY(0)}
-  
-  /* Text Mask Reveal */
   .mask-reveal{overflow:hidden;display:block}
   .mask-reveal span{display:inline-block;transform:translateY(110%);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
   .reveal.in-view .mask-reveal span{transform:translateY(0)}
@@ -142,14 +160,13 @@
   .letter-paper{
     background:linear-gradient(135deg,rgba(255,250,245,0.98),rgba(255,235,240,0.98));
     color:#5a1530;
-    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    box-shadow:0 20px 50px rgba(0,0,0,.5), 0 0 60px rgba(255,94,156,0.15);
     position:relative;
     background-image:linear-gradient(135deg,rgba(255,250,245,0.98),rgba(255,235,240,0.98)),repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(183,110,121,.07) 28px,rgba(183,110,121,.07) 29px);
     transform:rotate(-1deg);
     transition:transform .8s ease;
     border:1px solid rgba(255,255,255,0.5);
   }
-  .letter-paper:active{transform:rotate(0deg) scale(1.01)}
   
   /* Gold Wax Seal with Heart */
   .wax-seal{
@@ -168,7 +185,7 @@
 
   /* Memory Card */
   .memory-card{background:linear-gradient(135deg,rgba(255,240,245,0.05),rgba(255,240,245,0.09));border:1px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
-  .memory-card:active{transform:scale(0.98);border-color:var(--accent-2)}
+  .memory-card:active{transform:scale(0.98);border-color:var(--accent-2);box-shadow:0 0 20px rgba(255,94,156,0.2)}
   .memory-card .icon{transition:transform .5s;animation:iconFloat 4s ease-in-out infinite}
   @keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   .memory-card:nth-child(1) .icon{color:#ff5e9c;text-shadow:0 0 20px rgba(255,94,156,.4)}
@@ -180,7 +197,7 @@
 
   /* Princess Cake */
   .cake-container{position:relative;width:300px;height:360px;margin:0 auto;animation:floatY 4s ease-in-out infinite; will-change: transform;}
-  .cake-aura{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle, rgba(255,182,193,0.25), transparent 70%);z-index:-1;animation:pulseAura 4s ease-in-out infinite}
+  .cake-aura{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle, rgba(255,182,193,0.35), transparent 70%);z-index:-1;animation:pulseAura 4s ease-in-out infinite}
   @keyframes pulseAura{0%,100%{opacity:0.5;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.15)}}
   .cake-plate{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:290px;height:18px;background:linear-gradient(180deg,#f0d0c8 0%,#d68a96 50%,#5a1530 100%);border-radius:50% / 100%;box-shadow:0 10px 30px rgba(0,0,0,.5)}
   .cake-tier{position:absolute;left:50%;transform:translateX(-50%);border-radius:8px}
@@ -425,6 +442,13 @@
 <div id="intro" class="intro-overlay">
   <div class="orb" style="top:10%;left:10%;width:200px;height:200px;background:var(--rose);opacity:0.3"></div>
   <div class="orb" style="bottom:15%;right:10%;width:250px;height:250px;background:var(--purple);opacity:0.3;animation-delay:3s"></div>
+  
+  <!-- Intro Sparkles -->
+  <div class="sparkle-star" style="top:20%; left:30%; animation-delay:0s;"></div>
+  <div class="sparkle-star" style="top:70%; left:70%; animation-delay:1s;"></div>
+  <div class="sparkle-star" style="top:40%; left:80%; animation-delay:0.5s;"></div>
+  <div class="sparkle-star" style="top:80%; left:20%; animation-delay:1.5s;"></div>
+  
   <div class="text-center px-6 relative z-10">
     <div class="eyebrow mb-4 animate-pulse">Suman has a surprise for</div>
     <h1 class="font-vibes text-7xl md:text-9xl gradient-text-anim name-glow mb-3" style="font-size:clamp(4rem,12vw,9rem);">Ritika Bera</h1>
@@ -467,8 +491,11 @@
   <div class="orb" style="top:5%;left:5%;width:300px;height:300px;background:var(--rose)"></div>
   <div class="orb" style="bottom:10%;right:5%;width:350px;height:350px;background:var(--purple);animation-delay:5s"></div>
   
-  <i class="fas fa-heart" style="position:absolute; top:15%; left:8%; font-size:30px; color:var(--rose); opacity:0.18; animation: galleryFloat 15s ease-in-out infinite;"></i>
-  <i class="fas fa-crown" style="position:absolute; top:70%; right:10%; font-size:25px; color:var(--accent-2); opacity:0.18; animation: galleryFloat 15s ease-in-out infinite; animation-delay:2s;"></i>
+  <!-- Hero Sparkles -->
+  <div class="sparkle-star" style="top:15%; left:20%; animation-delay:0s;"></div>
+  <div class="sparkle-star" style="top:60%; left:85%; animation-delay:1.2s;"></div>
+  <div class="sparkle-star" style="top:80%; left:15%; animation-delay:2s;"></div>
+  <div class="sparkle-star" style="top:30%; left:75%; animation-delay:0.8s;"></div>
 
   <div class="container mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center relative z-10">
     <div class="lg:col-span-7" id="heroText">
@@ -509,6 +536,7 @@
 
     <div class="lg:col-span-5 reveal in-view" style="transition-delay:.3s" id="heroImageWrap">
       <div class="photo-frame relative">
+        <div class="photo-halo"></div>
         <div class="princess-badge">Birthday Princess</div>
         <div class="relative overflow-hidden rounded-sm">
           <img src="https://z-cdn-media.chatglm.cn/files/43904bc9-d88c-4c63-8588-7c2042693c80.jpeg?auth_key=1886481642-bb59059648b8471bb18cd5386ec79529-0-7acb5f7cb493c30c25b6b65b0284e602" alt="Ritika" class="w-full h-[520px] md:h-[620px] object-cover" loading="eager">
@@ -574,6 +602,12 @@
 
 <!-- GALLERY -->
 <section class="py-24 px-6 bg-gradient-to-b from-[var(--bg)] via-[var(--bg-2)] to-[var(--bg)] relative overflow-hidden">
+  <!-- Section Sparkles -->
+  <div class="sparkle-star" style="top:10%; left:10%; animation-delay:0s;"></div>
+  <div class="sparkle-star" style="top:20%; left:90%; animation-delay:1.5s;"></div>
+  <div class="sparkle-star" style="top:80%; left:15%; animation-delay:0.8s;"></div>
+  <div class="sparkle-star" style="top:90%; left:85%; animation-delay:2.2s;"></div>
+
   <div class="max-w-7xl mx-auto relative z-10">
     <div class="text-center mb-16 reveal">
       <div class="eyebrow mb-3">A gallery of you</div>
@@ -807,6 +841,12 @@
 
 <!-- FINAL WISHES -->
 <section class="py-28 px-6 relative overflow-hidden bg-[var(--bg)]">
+  <!-- Final Section Sparkles -->
+  <div class="sparkle-star" style="top:10%; left:15%; animation-delay:0s;"></div>
+  <div class="sparkle-star" style="top:20%; left:85%; animation-delay:1.2s;"></div>
+  <div class="sparkle-star" style="top:70%; left:10%; animation-delay:0.5s;"></div>
+  <div class="sparkle-star" style="top:85%; left:80%; animation-delay:2s;"></div>
+  
   <div class="max-w-4xl mx-auto text-center relative z-10">
     <div class="eyebrow mb-3 reveal">and so, my final wish</div>
     <h2 class="font-display section-title font-light italic mb-12 reveal">For the <span class="gradient-text-anim">years ahead</span></h2>
